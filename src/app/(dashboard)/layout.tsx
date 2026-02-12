@@ -98,11 +98,11 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   function NavSection({ sectionKey, items }: { sectionKey: "main" | "academic" | "admin"; items: typeof nav.main }) {
     return (
-      <div className="mb-4">
-        <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-widest text-white/30">
+      <div className="mb-2">
+        <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-white/30">
           {sectionLabels[sectionKey][lang]}
         </p>
-        <div className="space-y-0.5">
+        <div>
           {items.map((item) => {
             const active = pathname === item.href;
             return (
@@ -110,7 +110,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-2.5 rounded-sm px-3 py-2 text-xs font-medium transition-colors ${
+                className={`flex items-center gap-2 rounded-sm px-3 py-1.5 text-[11px] font-medium transition-colors ${
                   active
                     ? "bg-teal-600 text-white"
                     : "text-white/60 hover:bg-white/5 hover:text-white/90"
@@ -147,20 +147,20 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         }`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 border-b border-white/5 px-4 py-4">
-          <Image src="/logo-white.svg" alt="Mashaail Muscat" width={32} height={32} />
+        <div className="flex items-center gap-2.5 border-b border-white/5 px-4 py-3">
+          <Image src="/logo-white.svg" alt="Mashaail Muscat" width={28} height={28} />
           <div className="leading-tight">
-            <p className="text-xs font-bold text-white">
+            <p className="text-[11px] font-bold text-white">
               {lang === "en" ? "Mashaail Muscat" : "مشاعل مسقط"}
             </p>
-            <p className="text-[9px] text-white/40">
+            <p className="text-[8px] text-white/40">
               {lang === "en" ? "Private School" : "المدرسة الخاصة"}
             </p>
           </div>
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4">
+        <nav className="flex-1 overflow-y-auto px-3 py-2">
           <NavSection sectionKey="main" items={nav.main} />
           <NavSection sectionKey="academic" items={nav.academic} />
           <NavSection sectionKey="admin" items={nav.admin} />
@@ -170,7 +170,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main content */}
       <div className="flex flex-1 flex-col">
         {/* Top Bar */}
-        <header className="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3">
+        <header className="flex items-center justify-between border-b border-gray-200 bg-white px-5 py-2">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -221,7 +221,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 bg-gray-50 p-6">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4">
           {children}
         </main>
       </div>

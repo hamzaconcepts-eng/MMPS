@@ -85,13 +85,13 @@ export default function DashboardPage() {
   return (
     <div>
       {/* Page Header */}
-      <div className="mb-6">
-        <h1 className="text-xl font-bold text-dark-800">{labels.dashboard}</h1>
-        <p className="text-sm text-gray-500">{labels.overview}</p>
+      <div className="mb-3">
+        <h1 className="text-base font-bold text-dark-800">{labels.dashboard}</h1>
+        <p className="text-xs text-gray-500">{labels.overview}</p>
       </div>
 
       {/* Stat Cards */}
-      <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {[
           {
             label: labels.totalStudents,
@@ -128,7 +128,7 @@ export default function DashboardPage() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className={`rounded-md border p-4 shadow-card ${
+            className={`rounded-md border p-3 shadow-card ${
               stat.dark
                 ? "border-dark-700 bg-dark-800"
                 : "border-gray-100 bg-white"
@@ -142,7 +142,7 @@ export default function DashboardPage() {
               {stat.label}
             </p>
             <p
-              className={`mt-1 text-2xl font-extrabold tracking-tight ${
+              className={`mt-0.5 text-xl font-extrabold tracking-tight ${
                 stat.dark ? "text-white" : "text-dark-800"
               }`}
             >
@@ -156,28 +156,28 @@ export default function DashboardPage() {
       </div>
 
       {/* Middle Section: Recent Enrollments + Fee Overview */}
-      <div className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
         {/* Recent Enrollments */}
-        <div className="rounded-md border border-gray-100 bg-white p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-bold text-dark-800">
+        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-dark-800">
             {labels.recentEnrollments}
           </h3>
-          <table className="w-full text-xs">
+          <table className="w-full text-[11px]">
             <thead>
               <tr className="border-b border-gray-100 text-gray-400">
-                <th className="pb-2 text-start font-semibold">{labels.name}</th>
-                <th className="pb-2 text-start font-semibold">{labels.grade}</th>
-                <th className="pb-2 text-start font-semibold">{labels.date}</th>
+                <th className="pb-1.5 text-start font-semibold">{labels.name}</th>
+                <th className="pb-1.5 text-start font-semibold">{labels.grade}</th>
+                <th className="pb-1.5 text-start font-semibold">{labels.date}</th>
               </tr>
             </thead>
             <tbody>
               {recentStudents.map((s, i) => (
                 <tr key={i} className="border-b border-gray-50 last:border-0">
-                  <td className="py-2.5 font-medium text-dark-800">
+                  <td className="py-1.5 font-medium text-dark-800">
                     {s.name[lang]}
                   </td>
-                  <td className="py-2.5 text-gray-500">{s.grade[lang]}</td>
-                  <td className="py-2.5 text-gray-500">{s.date}</td>
+                  <td className="py-1.5 text-gray-500">{s.grade[lang]}</td>
+                  <td className="py-1.5 text-gray-500">{s.date}</td>
                 </tr>
               ))}
             </tbody>
@@ -185,11 +185,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Fee Overview */}
-        <div className="rounded-md border border-gray-100 bg-white p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-bold text-dark-800">
+        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-dark-800">
             {labels.feeOverview}
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {[
               { label: labels.paid, value: "68%", color: "bg-success", width: "68%" },
               { label: labels.partial, value: "14%", color: "bg-orange-400", width: "14%" },
@@ -211,17 +211,17 @@ export default function DashboardPage() {
           </div>
 
           {/* Summary numbers */}
-          <div className="mt-5 grid grid-cols-3 gap-3 border-t border-gray-100 pt-4">
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-100 pt-2">
             <div className="text-center">
-              <p className="text-lg font-extrabold text-success">842</p>
+              <p className="text-sm font-extrabold text-success">842</p>
               <p className="text-[10px] text-gray-400">{labels.paid}</p>
             </div>
             <div className="text-center">
-              <p className="text-lg font-extrabold text-orange-500">174</p>
+              <p className="text-sm font-extrabold text-orange-500">174</p>
               <p className="text-[10px] text-gray-400">{labels.partial}</p>
             </div>
             <div className="text-center">
-              <p className="text-lg font-extrabold text-danger">224</p>
+              <p className="text-sm font-extrabold text-danger">224</p>
               <p className="text-[10px] text-gray-400">{labels.unpaid}</p>
             </div>
           </div>
@@ -229,18 +229,18 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom Section: Staff on Leave + Upcoming Holidays */}
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {/* Staff on Leave */}
-        <div className="rounded-md border border-gray-100 bg-white p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-bold text-dark-800">
+        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-dark-800">
             {labels.staffOnLeave}
           </h3>
           {staffOnLeave.length > 0 ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {staffOnLeave.map((s, i) => (
                 <div
                   key={i}
-                  className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2.5"
+                  className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2"
                 >
                   <div>
                     <p className="text-xs font-semibold text-dark-800">
@@ -260,15 +260,15 @@ export default function DashboardPage() {
         </div>
 
         {/* Upcoming Holidays */}
-        <div className="rounded-md border border-gray-100 bg-white p-5 shadow-card">
-          <h3 className="mb-4 text-sm font-bold text-dark-800">
+        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-dark-800">
             {labels.upcomingHolidays}
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {upcomingHolidays.map((h, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2.5"
+                className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2"
               >
                 <p className="text-xs font-semibold text-dark-800">
                   {h.name[lang]}

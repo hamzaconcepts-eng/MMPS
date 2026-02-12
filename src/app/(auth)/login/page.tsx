@@ -75,7 +75,7 @@ export default function LoginPage() {
         </button>
       </div>
 
-      <div className={`rounded-xl bg-white p-8 shadow-card ${isRtl ? "font-arabic" : ""}`}>
+      <div className="rounded-xl bg-white p-8 shadow-card">
         {/* Logo */}
         <div className="mb-6 flex justify-center">
           <Image
@@ -98,7 +98,7 @@ export default function LoginPage() {
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className={`space-y-4 ${isRtl ? "font-arabic" : ""}`}>
           {/* Error Message */}
           {error && (
             <div className="rounded-sm bg-danger-bg px-4 py-2.5 text-xs font-medium text-danger-text">

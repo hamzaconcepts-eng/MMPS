@@ -14,25 +14,23 @@ const t = {
     vsLastMonth: "vs last month",
     presentToday: "present today",
     collected: "collected this year",
-    attendanceTrend: "Attendance Trend (Last 7 Days)",
+    attendanceTrend: "Attendance Trend (This Week)",
     feeCollection: "Fee Collection Status",
     paid: "Paid",
-    partial: "Partial",
+    partiallyPaid: "Partially Paid",
     unpaid: "Unpaid",
     recentActivity: "Recent Activity",
     quickStats: "Quick Stats",
     classrooms: "Classrooms",
-    grades: "Grades Offered",
-    studentTeacherRatio: "Student : Teacher",
-    busRoutes: "Bus Routes",
+    totalParents: "Total Parents",
+    absentToday: "Absent Today",
+    overdueFees: "Overdue Fees",
     currency: "OMR",
     sun: "Sun",
     mon: "Mon",
     tue: "Tue",
     wed: "Wed",
     thu: "Thu",
-    sat: "Sat",
-    today: "Today",
   },
   ar: {
     dashboard: "لوحة التحكم",
@@ -45,36 +43,32 @@ const t = {
     vsLastMonth: "مقارنة بالشهر الماضي",
     presentToday: "حاضرون اليوم",
     collected: "محصّل هذا العام",
-    attendanceTrend: "اتجاه الحضور (آخر 7 أيام)",
+    attendanceTrend: "اتجاه الحضور (هذا الأسبوع)",
     feeCollection: "حالة تحصيل الرسوم",
     paid: "مدفوع",
-    partial: "جزئي",
+    partiallyPaid: "مدفوع جزئياً",
     unpaid: "غير مدفوع",
     recentActivity: "النشاط الأخير",
     quickStats: "إحصائيات سريعة",
     classrooms: "الفصول",
-    grades: "المراحل الدراسية",
-    studentTeacherRatio: "طالب : معلم",
-    busRoutes: "خطوط النقل",
+    totalParents: "أولياء الأمور",
+    absentToday: "الغياب اليوم",
+    overdueFees: "رسوم متأخرة",
     currency: "ر.ع",
     sun: "أحد",
     mon: "إثن",
     tue: "ثلا",
     wed: "أربع",
     thu: "خمي",
-    sat: "سبت",
-    today: "اليوم",
   },
 };
 
 const attendanceData = [
-  { day: "sat", value: 91 },
   { day: "sun", value: 93 },
   { day: "mon", value: 95 },
   { day: "tue", value: 89 },
   { day: "wed", value: 94 },
   { day: "thu", value: 92 },
-  { day: "today", value: 94 },
 ];
 
 const recentActivity = [
@@ -114,7 +108,21 @@ export default function DashboardPage() {
   const { lang } = useLang();
   const labels = t[lang];
 
-  const maxAttendance = 100;
+  // Line graph calculations
+  const graphW = 280;
+  const graphH = 80;
+  const padX = 10;
+  const padY = 10;
+  const minVal = Math.min(...attendanceData.map((d) => d.value)) - 3;
+  const maxVal = Math.max(...attendanceData.map((d) => d.value)) + 3;
+  const points = attendanceData.map((d, i) => ({
+    x: padX + (i / (attendanceData.length - 1)) * (graphW - padX * 2),
+    y: padY + (1 - (d.value - minVal) / (maxVal - minVal)) * (graphH - padY * 2),
+    value: d.value,
+    day: d.day,
+  }));
+  const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+  const areaPath = `${linePath} L ${points[points.length - 1].x} ${graphH} L ${points[0].x} ${graphH} Z`;
 
   return (
     <div>
@@ -183,39 +191,47 @@ export default function DashboardPage() {
             >
               {stat.prefix || ""}{stat.value}
             </p>
-            <p className={`mt-0.5 text-[10px] font-semibold ${stat.subColor}`}>
-              {stat.sub}
-            </p>
+            {stat.sub && (
+              <p className={`mt-0.5 text-[10px] font-semibold ${stat.subColor}`}>
+                {stat.sub}
+              </p>
+            )}
           </div>
         ))}
       </div>
 
       {/* Middle Section: Attendance Trend + Fee Collection */}
       <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        {/* Attendance Trend */}
+        {/* Attendance Trend — Line Graph */}
         <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
           <h3 className="mb-2 text-xs font-bold text-dark-800">
             {labels.attendanceTrend}
           </h3>
-          <div className="flex items-end gap-2">
-            {attendanceData.map((d, i) => {
-              const dayKey = d.day as keyof typeof labels;
-              const height = (d.value / maxAttendance) * 100;
-              const isToday = d.day === "today";
+          <svg viewBox={`0 0 ${graphW} ${graphH + 18}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+            {/* Area fill */}
+            <path d={areaPath} fill="rgba(13,148,136,0.08)" />
+            {/* Line */}
+            <path d={linePath} fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Dots + labels */}
+            {points.map((p, i) => {
+              const dayKey = p.day as keyof typeof labels;
               return (
-                <div key={i} className="flex flex-1 flex-col items-center gap-1">
-                  <span className="text-[10px] font-bold text-dark-800">{d.value}%</span>
-                  <div
-                    className={`w-full rounded-sm ${isToday ? "bg-teal-500" : "bg-teal-200"}`}
-                    style={{ height: `${height * 0.7}px` }}
-                  />
-                  <span className={`text-[9px] font-medium ${isToday ? "text-teal-600 font-bold" : "text-gray-400"}`}>
-                    {labels[dayKey] || d.day}
-                  </span>
-                </div>
+                <g key={i}>
+                  {/* Dot */}
+                  <circle cx={p.x} cy={p.y} r="4" fill="#0d9488" />
+                  <circle cx={p.x} cy={p.y} r="2" fill="white" />
+                  {/* Value above dot */}
+                  <text x={p.x} y={p.y - 8} textAnchor="middle" fontSize="9" fontWeight="700" fill="#1a2e35">
+                    {p.value}%
+                  </text>
+                  {/* Day label below */}
+                  <text x={p.x} y={graphH + 12} textAnchor="middle" fontSize="8" fontWeight="500" fill="#9ca3af">
+                    {labels[dayKey]}
+                  </text>
+                </g>
               );
             })}
-          </div>
+          </svg>
         </div>
 
         {/* Fee Collection Status */}
@@ -226,7 +242,7 @@ export default function DashboardPage() {
           <div className="space-y-2">
             {[
               { label: labels.paid, value: "68%", amount: `${labels.currency} 84,200`, color: "bg-success", width: "68%" },
-              { label: labels.partial, value: "14%", amount: `${labels.currency} 17,400`, color: "bg-orange-400", width: "14%" },
+              { label: labels.partiallyPaid, value: "14%", amount: `${labels.currency} 17,400`, color: "bg-orange-400", width: "14%" },
               { label: labels.unpaid, value: "18%", amount: `${labels.currency} 22,400`, color: "bg-danger", width: "18%" },
             ].map((item) => (
               <div key={item.label}>
@@ -255,7 +271,7 @@ export default function DashboardPage() {
             </div>
             <div className="text-center">
               <p className="text-sm font-extrabold text-orange-500">174</p>
-              <p className="text-[10px] text-gray-400">{labels.partial}</p>
+              <p className="text-[10px] text-gray-400">{labels.partiallyPaid}</p>
             </div>
             <div className="text-center">
               <p className="text-sm font-extrabold text-danger">224</p>
@@ -294,16 +310,16 @@ export default function DashboardPage() {
           </h3>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { label: labels.classrooms, value: "42", icon: "home" },
-              { label: labels.grades, value: "K–12", icon: "book" },
-              { label: labels.studentTeacherRatio, value: "14:1", icon: "users" },
-              { label: labels.busRoutes, value: "8", icon: "truck" },
+              { label: labels.classrooms, value: "42", icon: "home", color: "bg-teal-50 text-teal-600" },
+              { label: labels.totalParents, value: "986", icon: "heart", color: "bg-blue-50 text-blue-600" },
+              { label: labels.absentToday, value: "72", icon: "alert", color: "bg-orange-50 text-orange-600" },
+              { label: labels.overdueFees, value: "134", icon: "clock", color: "bg-red-50 text-danger" },
             ].map((item) => (
               <div
                 key={item.label}
                 className="flex items-center gap-2.5 rounded-sm bg-gray-50 px-3 py-2.5"
               >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-600">
+                <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md ${item.color}`}>
                   <QuickStatIcon name={item.icon} />
                 </div>
                 <div>
@@ -324,14 +340,14 @@ function QuickStatIcon({ name }: { name: string }) {
     home: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
     ),
-    book: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+    heart: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
     ),
-    users: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+    alert: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
     ),
-    truck: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" /><polygon points="16 8 20 8 23 11 23 16 16 16 16 8" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></svg>
+    clock: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
     ),
   };
   return <>{icons[name] || null}</>;

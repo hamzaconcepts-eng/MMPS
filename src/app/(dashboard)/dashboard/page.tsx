@@ -22,7 +22,7 @@ const t = {
     recentActivity: "Recent Activity",
     quickStats: "Quick Stats",
     classrooms: "Classrooms",
-    totalParents: "Total Parents",
+    newThisMonth: "New This Month",
     absentToday: "Absent Today",
     overdueFees: "Overdue Fees",
     currency: "OMR",
@@ -51,7 +51,7 @@ const t = {
     recentActivity: "النشاط الأخير",
     quickStats: "إحصائيات سريعة",
     classrooms: "الفصول",
-    totalParents: "أولياء الأمور",
+    newThisMonth: "الجدد هذا الشهر",
     absentToday: "الغياب اليوم",
     overdueFees: "رسوم متأخرة",
     currency: "ر.ع",
@@ -127,13 +127,13 @@ export default function DashboardPage() {
   return (
     <div>
       {/* Page Header */}
-      <div className="mb-3">
+      <div className="mb-2">
         <h1 className="text-base font-bold text-warm-800">{labels.dashboard}</h1>
         <p className="text-xs text-warm-500">{labels.overview}</p>
       </div>
 
       {/* Stat Cards */}
-      <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-5">
         {[
           {
             label: labels.totalStudents,
@@ -193,9 +193,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Middle Section: Attendance Trend + Fee Collection */}
-      <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
+      <div className="mb-2 grid grid-cols-1 gap-2 lg:grid-cols-2">
         {/* Attendance Trend — Line Graph */}
-        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-card">
           <h3 className="mb-2 text-xs font-bold text-warm-800">
             {labels.attendanceTrend}
           </h3>
@@ -224,8 +224,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Fee Collection Status */}
-        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-warm-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-card">
+          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
             {labels.feeCollection}
           </h3>
           <div className="space-y-2">
@@ -253,7 +253,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Summary numbers */}
-          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-200 pt-2">
+          <div className="mt-2 grid grid-cols-3 gap-2 border-t border-gray-200 pt-1.5">
             <div className="text-center">
               <p className="text-sm font-extrabold text-success">842</p>
               <p className="text-[10px] text-warm-500">{labels.paid}</p>
@@ -271,10 +271,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom Section: Recent Activity + Quick Stats */}
-      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
         {/* Recent Activity */}
-        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-warm-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-card">
+          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
             {labels.recentActivity}
           </h3>
           <div className="space-y-2">
@@ -293,20 +293,20 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-warm-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5 shadow-card">
+          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
             {labels.quickStats}
           </h3>
           <div className="grid grid-cols-2 gap-2">
             {[
               { label: labels.classrooms, value: "42", icon: "home", color: "bg-teal-50 text-teal-600" },
-              { label: labels.totalParents, value: "986", icon: "heart", color: "bg-orange-100 text-orange-600" },
+              { label: labels.newThisMonth, value: "15", icon: "plus", color: "bg-teal-50 text-teal-600" },
               { label: labels.absentToday, value: "72", icon: "alert", color: "bg-orange-100 text-orange-500" },
               { label: labels.overdueFees, value: "134", icon: "clock", color: "bg-danger-bg text-danger" },
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-2.5 rounded-lg bg-gray-100 px-3 py-2.5"
+                className="flex items-center gap-2.5 rounded-lg bg-gray-100 px-3 py-2"
               >
                 <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg ${item.color}`}>
                   <QuickStatIcon name={item.icon} />
@@ -329,8 +329,8 @@ function QuickStatIcon({ name }: { name: string }) {
     home: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
     ),
-    heart: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
+    plus: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
     ),
     alert: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>

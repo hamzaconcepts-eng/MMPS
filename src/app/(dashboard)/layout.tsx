@@ -127,7 +127,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div dir={isRtl ? "rtl" : "ltr"} className={`flex min-h-screen ${isRtl ? "font-arabic" : ""}`}>
+    <div dir={isRtl ? "rtl" : "ltr"} className={`flex min-h-dvh ${isRtl ? "font-arabic" : ""}`}>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -138,7 +138,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {/* Sidebar */}
       <aside
-        className={`fixed z-50 flex h-screen w-[220px] flex-shrink-0 flex-col bg-dark-800 transition-transform md:static md:translate-x-0 ${
+        className={`fixed z-50 flex h-dvh w-[220px] flex-shrink-0 flex-col bg-dark-800 transition-transform md:static md:translate-x-0 ${
           sidebarOpen
             ? "translate-x-0"
             : isRtl

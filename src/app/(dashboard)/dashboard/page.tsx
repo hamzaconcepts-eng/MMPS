@@ -9,26 +9,30 @@ const t = {
     totalStudents: "Total Students",
     totalTeachers: "Total Teachers",
     todayAttendance: "Today's Attendance",
-    feeCollection: "Fee Collection",
-    totalRevenue: "Monthly Revenue",
-    recentEnrollments: "Recent Enrollments",
-    feeOverview: "Fee Overview",
-    staffOnLeave: "Staff on Leave Today",
-    upcomingHolidays: "Upcoming Holidays",
-    name: "Name",
-    grade: "Grade",
-    date: "Date",
-    role: "Role",
+    outstandingFees: "Outstanding Fees",
+    monthlyRevenue: "Monthly Revenue",
+    vsLastMonth: "vs last month",
+    presentToday: "present today",
+    collected: "collected this year",
+    attendanceTrend: "Attendance Trend (Last 7 Days)",
+    feeCollection: "Fee Collection Status",
     paid: "Paid",
-    unpaid: "Unpaid",
     partial: "Partial",
-    noData: "No data yet",
-    thisWeek: "this week",
-    onLeave: "On leave",
-    today: "Today",
-    thisSemester: "This semester",
-    thisMonth: "This month",
+    unpaid: "Unpaid",
+    recentActivity: "Recent Activity",
+    quickStats: "Quick Stats",
+    classrooms: "Classrooms",
+    grades: "Grades Offered",
+    studentTeacherRatio: "Student : Teacher",
+    busRoutes: "Bus Routes",
     currency: "OMR",
+    sun: "Sun",
+    mon: "Mon",
+    tue: "Tue",
+    wed: "Wed",
+    thu: "Thu",
+    sat: "Sat",
+    today: "Today",
   },
   ar: {
     dashboard: "لوحة التحكم",
@@ -36,51 +40,81 @@ const t = {
     totalStudents: "إجمالي الطلاب",
     totalTeachers: "إجمالي المعلمين",
     todayAttendance: "حضور اليوم",
-    feeCollection: "تحصيل الرسوم",
-    totalRevenue: "الإيرادات الشهرية",
-    recentEnrollments: "التسجيلات الأخيرة",
-    feeOverview: "نظرة عامة على الرسوم",
-    staffOnLeave: "الموظفون في إجازة اليوم",
-    upcomingHolidays: "الإجازات القادمة",
-    name: "الاسم",
-    grade: "الصف",
-    date: "التاريخ",
-    role: "الوظيفة",
+    outstandingFees: "الرسوم المستحقة",
+    monthlyRevenue: "الإيرادات الشهرية",
+    vsLastMonth: "مقارنة بالشهر الماضي",
+    presentToday: "حاضرون اليوم",
+    collected: "محصّل هذا العام",
+    attendanceTrend: "اتجاه الحضور (آخر 7 أيام)",
+    feeCollection: "حالة تحصيل الرسوم",
     paid: "مدفوع",
-    unpaid: "غير مدفوع",
     partial: "جزئي",
-    noData: "لا توجد بيانات بعد",
-    thisWeek: "هذا الأسبوع",
-    onLeave: "في إجازة",
-    today: "اليوم",
-    thisSemester: "هذا الفصل",
-    thisMonth: "هذا الشهر",
+    unpaid: "غير مدفوع",
+    recentActivity: "النشاط الأخير",
+    quickStats: "إحصائيات سريعة",
+    classrooms: "الفصول",
+    grades: "المراحل الدراسية",
+    studentTeacherRatio: "طالب : معلم",
+    busRoutes: "خطوط النقل",
     currency: "ر.ع",
+    sun: "أحد",
+    mon: "إثن",
+    tue: "ثلا",
+    wed: "أربع",
+    thu: "خمي",
+    sat: "سبت",
+    today: "اليوم",
   },
 };
 
-const recentStudents = [
-  { name: { en: "Ahmed Al-Balushi", ar: "أحمد البلوشي" }, grade: { en: "Grade 5A", ar: "الصف 5أ" }, date: "2026-02-12" },
-  { name: { en: "Fatima Al-Harthi", ar: "فاطمة الحارثية" }, grade: { en: "Grade 3B", ar: "الصف 3ب" }, date: "2026-02-11" },
-  { name: { en: "Omar Al-Rawahi", ar: "عمر الرواحي" }, grade: { en: "Grade 7A", ar: "الصف 7أ" }, date: "2026-02-10" },
-  { name: { en: "Maryam Al-Habsi", ar: "مريم الحبسية" }, grade: { en: "Grade 1A", ar: "الصف 1أ" }, date: "2026-02-09" },
-  { name: { en: "Khalid Al-Siyabi", ar: "خالد السيابي" }, grade: { en: "Grade 9B", ar: "الصف 9ب" }, date: "2026-02-08" },
+const attendanceData = [
+  { day: "sat", value: 91 },
+  { day: "sun", value: 93 },
+  { day: "mon", value: 95 },
+  { day: "tue", value: 89 },
+  { day: "wed", value: 94 },
+  { day: "thu", value: 92 },
+  { day: "today", value: 94 },
 ];
 
-const staffOnLeave = [
-  { name: { en: "Salim Al-Busaidi", ar: "سالم البوسعيدي" }, role: { en: "Math Teacher", ar: "معلم رياضيات" } },
-  { name: { en: "Aisha Al-Kindi", ar: "عائشة الكندية" }, role: { en: "Arabic Teacher", ar: "معلمة لغة عربية" } },
-];
-
-const upcomingHolidays = [
-  { name: { en: "Isra & Mi'raj", ar: "الإسراء والمعراج" }, date: "2026-02-27" },
-  { name: { en: "Ramadan Begins", ar: "بداية رمضان" }, date: "2026-03-17" },
-  { name: { en: "Eid Al-Fitr", ar: "عيد الفطر" }, date: "2026-04-16" },
+const recentActivity = [
+  {
+    type: "enrollment",
+    text: { en: "New student Ahmed Al-Balushi enrolled in Grade 5A", ar: "تسجيل الطالب الجديد أحمد البلوشي في الصف 5أ" },
+    time: { en: "2 hours ago", ar: "قبل ساعتين" },
+    color: "bg-teal-500",
+  },
+  {
+    type: "payment",
+    text: { en: "Fee payment received from Fatima Al-Harthi — OMR 450", ar: "استلام رسوم من فاطمة الحارثية — 450 ر.ع" },
+    time: { en: "3 hours ago", ar: "قبل 3 ساعات" },
+    color: "bg-success",
+  },
+  {
+    type: "absence",
+    text: { en: "Teacher Salim Al-Busaidi marked absent today", ar: "تسجيل غياب المعلم سالم البوسعيدي اليوم" },
+    time: { en: "5 hours ago", ar: "قبل 5 ساعات" },
+    color: "bg-orange-400",
+  },
+  {
+    type: "exam",
+    text: { en: "Math exam scheduled for Grade 7 on Feb 20", ar: "جدولة امتحان الرياضيات للصف 7 في 20 فبراير" },
+    time: { en: "Yesterday", ar: "أمس" },
+    color: "bg-blue-400",
+  },
+  {
+    type: "payment",
+    text: { en: "Fee payment received from Omar Al-Rawahi — OMR 380", ar: "استلام رسوم من عمر الرواحي — 380 ر.ع" },
+    time: { en: "Yesterday", ar: "أمس" },
+    color: "bg-success",
+  },
 ];
 
 export default function DashboardPage() {
   const { lang } = useLang();
   const labels = t[lang];
+
+  const maxAttendance = 100;
 
   return (
     <div>
@@ -96,32 +130,33 @@ export default function DashboardPage() {
           {
             label: labels.totalStudents,
             value: "1,240",
-            sub: `+12 ${labels.thisWeek}`,
+            sub: `+8 ${labels.vsLastMonth}`,
             subColor: "text-success",
           },
           {
             label: labels.totalTeachers,
             value: "86",
-            sub: `4 ${labels.onLeave}`,
-            subColor: "text-orange-400",
+            sub: `82 ${labels.presentToday}`,
+            subColor: "text-teal-600",
             dark: true,
           },
           {
             label: labels.todayAttendance,
             value: "94.2%",
-            sub: labels.today,
+            sub: `+1.1% ${labels.vsLastMonth}`,
             subColor: "text-success",
           },
           {
-            label: labels.feeCollection,
-            value: "72%",
-            sub: labels.thisSemester,
+            label: labels.outstandingFees,
+            value: "12,400",
+            sub: `78% ${labels.collected}`,
             subColor: "text-orange-500",
+            prefix: `${labels.currency} `,
           },
           {
-            label: labels.totalRevenue,
+            label: labels.monthlyRevenue,
             value: "45,200",
-            sub: labels.thisMonth,
+            sub: `+5% ${labels.vsLastMonth}`,
             subColor: "text-teal-600",
             prefix: `${labels.currency} `,
           },
@@ -155,50 +190,52 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      {/* Middle Section: Recent Enrollments + Fee Overview */}
+      {/* Middle Section: Attendance Trend + Fee Collection */}
       <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
-        {/* Recent Enrollments */}
+        {/* Attendance Trend */}
         <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
           <h3 className="mb-2 text-xs font-bold text-dark-800">
-            {labels.recentEnrollments}
+            {labels.attendanceTrend}
           </h3>
-          <table className="w-full text-[11px]">
-            <thead>
-              <tr className="border-b border-gray-100 text-gray-400">
-                <th className="pb-1.5 text-start font-semibold">{labels.name}</th>
-                <th className="pb-1.5 text-start font-semibold">{labels.grade}</th>
-                <th className="pb-1.5 text-start font-semibold">{labels.date}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentStudents.map((s, i) => (
-                <tr key={i} className="border-b border-gray-50 last:border-0">
-                  <td className="py-1.5 font-medium text-dark-800">
-                    {s.name[lang]}
-                  </td>
-                  <td className="py-1.5 text-gray-500">{s.grade[lang]}</td>
-                  <td className="py-1.5 text-gray-500">{s.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="flex items-end gap-2">
+            {attendanceData.map((d, i) => {
+              const dayKey = d.day as keyof typeof labels;
+              const height = (d.value / maxAttendance) * 100;
+              const isToday = d.day === "today";
+              return (
+                <div key={i} className="flex flex-1 flex-col items-center gap-1">
+                  <span className="text-[10px] font-bold text-dark-800">{d.value}%</span>
+                  <div
+                    className={`w-full rounded-sm ${isToday ? "bg-teal-500" : "bg-teal-200"}`}
+                    style={{ height: `${height * 0.7}px` }}
+                  />
+                  <span className={`text-[9px] font-medium ${isToday ? "text-teal-600 font-bold" : "text-gray-400"}`}>
+                    {labels[dayKey] || d.day}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Fee Overview */}
+        {/* Fee Collection Status */}
         <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
           <h3 className="mb-2 text-xs font-bold text-dark-800">
-            {labels.feeOverview}
+            {labels.feeCollection}
           </h3>
           <div className="space-y-2">
             {[
-              { label: labels.paid, value: "68%", color: "bg-success", width: "68%" },
-              { label: labels.partial, value: "14%", color: "bg-orange-400", width: "14%" },
-              { label: labels.unpaid, value: "18%", color: "bg-danger", width: "18%" },
+              { label: labels.paid, value: "68%", amount: `${labels.currency} 84,200`, color: "bg-success", width: "68%" },
+              { label: labels.partial, value: "14%", amount: `${labels.currency} 17,400`, color: "bg-orange-400", width: "14%" },
+              { label: labels.unpaid, value: "18%", amount: `${labels.currency} 22,400`, color: "bg-danger", width: "18%" },
             ].map((item) => (
               <div key={item.label}>
-                <div className="mb-1 flex items-center justify-between text-xs">
+                <div className="mb-1 flex items-center justify-between text-[11px]">
                   <span className="font-medium text-gray-600">{item.label}</span>
-                  <span className="font-bold text-dark-800">{item.value}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-gray-400">{item.amount}</span>
+                    <span className="font-bold text-dark-800">{item.value}</span>
+                  </div>
                 </div>
                 <div className="h-2 w-full rounded-full bg-gray-100">
                   <div
@@ -228,54 +265,51 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Bottom Section: Staff on Leave + Upcoming Holidays */}
+      {/* Bottom Section: Recent Activity + Quick Stats */}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-        {/* Staff on Leave */}
+        {/* Recent Activity */}
         <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
           <h3 className="mb-2 text-xs font-bold text-dark-800">
-            {labels.staffOnLeave}
-          </h3>
-          {staffOnLeave.length > 0 ? (
-            <div className="space-y-2">
-              {staffOnLeave.map((s, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2"
-                >
-                  <div>
-                    <p className="text-xs font-semibold text-dark-800">
-                      {s.name[lang]}
-                    </p>
-                    <p className="text-[10px] text-gray-400">{s.role[lang]}</p>
-                  </div>
-                  <span className="rounded-full bg-orange-100 px-2.5 py-0.5 text-[10px] font-bold text-orange-600">
-                    {labels.onLeave}
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-xs text-gray-400">{labels.noData}</p>
-          )}
-        </div>
-
-        {/* Upcoming Holidays */}
-        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-dark-800">
-            {labels.upcomingHolidays}
+            {labels.recentActivity}
           </h3>
           <div className="space-y-2">
-            {upcomingHolidays.map((h, i) => (
+            {recentActivity.map((a, i) => (
+              <div key={i} className="flex items-start gap-2">
+                <div className={`mt-1 h-2 w-2 flex-shrink-0 rounded-full ${a.color}`} />
+                <div className="min-w-0 flex-1">
+                  <p className="text-[11px] font-medium text-dark-800 leading-tight">
+                    {a.text[lang]}
+                  </p>
+                  <p className="text-[10px] text-gray-400">{a.time[lang]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-dark-800">
+            {labels.quickStats}
+          </h3>
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { label: labels.classrooms, value: "42", icon: "home" },
+              { label: labels.grades, value: "K–12", icon: "book" },
+              { label: labels.studentTeacherRatio, value: "14:1", icon: "users" },
+              { label: labels.busRoutes, value: "8", icon: "truck" },
+            ].map((item) => (
               <div
-                key={i}
-                className="flex items-center justify-between rounded-sm bg-gray-50 px-3 py-2"
+                key={item.label}
+                className="flex items-center gap-2.5 rounded-sm bg-gray-50 px-3 py-2.5"
               >
-                <p className="text-xs font-semibold text-dark-800">
-                  {h.name[lang]}
-                </p>
-                <span className="text-[10px] font-medium text-gray-400">
-                  {h.date}
-                </span>
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-teal-50 text-teal-600">
+                  <QuickStatIcon name={item.icon} />
+                </div>
+                <div>
+                  <p className="text-sm font-extrabold text-dark-800">{item.value}</p>
+                  <p className="text-[10px] text-gray-400">{item.label}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -283,4 +317,22 @@ export default function DashboardPage() {
       </div>
     </div>
   );
+}
+
+function QuickStatIcon({ name }: { name: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    home: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
+    ),
+    book: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
+    ),
+    users: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+    ),
+    truck: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" /><polygon points="16 8 20 8 23 11 23 16 16 16 16 8" /><circle cx="5.5" cy="18.5" r="2.5" /><circle cx="18.5" cy="18.5" r="2.5" /></svg>
+    ),
+  };
+  return <>{icons[name] || null}</>;
 }

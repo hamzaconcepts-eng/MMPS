@@ -99,7 +99,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   function NavSection({ sectionKey, items }: { sectionKey: "main" | "academic" | "admin"; items: typeof nav.main }) {
     return (
       <div className="mb-2">
-        <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-warm-500/60">
+        <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-warm-500/50">
           {sectionLabels[sectionKey][lang]}
         </p>
         <div>
@@ -110,10 +110,10 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-colors ${
+                className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-[11px] font-medium transition-all ${
                   active
-                    ? "bg-orange-400/90 text-white shadow-sm"
-                    : "text-warm-800/50 hover:bg-warm-800/5 hover:text-warm-800/80"
+                    ? "bg-orange-400/15 text-orange-600 shadow-sm"
+                    : "text-warm-500 hover:bg-white/50 hover:text-warm-700"
                 }`}
               >
                 <NavIcon name={item.icon} />
@@ -127,18 +127,18 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div dir={isRtl ? "rtl" : "ltr"} className={`flex min-h-dvh ${isRtl ? "font-arabic" : ""}`}>
+    <div dir={isRtl ? "rtl" : "ltr"} className={`flex min-h-dvh ${isRtl ? "font-arabic" : ""}`} style={{ background: "var(--gradient-warm)" }}>
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/30 md:hidden"
+          className="fixed inset-0 z-40 bg-black/20 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar — warm cream */}
+      {/* Sidebar — frosted glass */}
       <aside
-        className={`fixed z-50 flex h-dvh w-[220px] flex-shrink-0 flex-col border-r border-gray-200 bg-gray-100 transition-transform md:static md:translate-x-0 ${
+        className={`glass-subtle fixed z-50 flex h-dvh w-[220px] flex-shrink-0 flex-col transition-transform md:static md:translate-x-0 ${
           sidebarOpen
             ? "translate-x-0"
             : isRtl
@@ -147,7 +147,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         }`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 border-b border-gray-200 px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-white/30 px-4 py-3">
           <Image src="/logo.svg" alt="Mashaail Muscat" width={28} height={28} />
           <div className="leading-tight">
             <p className="text-[11px] font-bold text-warm-800">
@@ -169,8 +169,8 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
       {/* Main content */}
       <div className="flex flex-1 flex-col">
-        {/* Top Bar */}
-        <header className="flex items-center justify-between border-b border-gray-200 bg-white px-5 py-2">
+        {/* Top Bar — frosted glass */}
+        <header className="glass flex items-center justify-between px-5 py-2">
           {/* Mobile menu button */}
           <button
             type="button"
@@ -195,13 +195,13 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="rounded-full border border-gray-200 px-3 py-1 text-[10px] font-semibold text-warm-500 transition-colors hover:border-orange-300 hover:text-orange-500"
+              className="rounded-full bg-white/50 px-3 py-1 text-[10px] font-semibold text-warm-500 transition-all hover:bg-white/80 hover:text-orange-500"
             >
               {lang === "en" ? "عربي" : "EN"}
             </button>
 
             {/* Notifications */}
-            <button type="button" className="relative text-warm-500 hover:text-warm-700">
+            <button type="button" className="relative text-warm-400 hover:text-warm-600">
               <NavIcon name="bell" />
               <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-400 text-[8px] font-bold text-white">
                 3
@@ -209,19 +209,19 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             </button>
 
             {/* Role Badge */}
-            <span className="rounded-full bg-orange-100 px-3 py-1 text-[10px] font-bold text-orange-600">
+            <span className="rounded-full bg-white/50 px-3 py-1 text-[10px] font-bold text-warm-600">
               {lang === "en" ? "Super Admin" : "المسؤول الأعلى"}
             </span>
 
             {/* Avatar */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-xs font-bold text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-400/20 text-xs font-bold text-orange-600">
               {lang === "en" ? "MH" : "م"}
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-3">
+        <main className="flex-1 overflow-y-auto p-3">
           {children}
         </main>
       </div>

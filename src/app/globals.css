@@ -55,11 +55,15 @@
   --danger-bg: #fee2e2;
   --danger-text: #991b1b;
 
-  /* --- Shadows (warm tint) --- */
-  --shadow-sm: 0 1px 3px rgba(41, 37, 36, 0.06);
-  --shadow-md: 0 4px 12px rgba(41, 37, 36, 0.08);
-  --shadow-lg: 0 8px 24px rgba(41, 37, 36, 0.1);
-  --shadow-card: 0 1px 3px rgba(41, 37, 36, 0.04), 0 4px 12px rgba(41, 37, 36, 0.03);
+  /* --- Shadows (soft, diffused) --- */
+  --shadow-sm: 0 1px 3px rgba(41, 37, 36, 0.04);
+  --shadow-md: 0 4px 16px rgba(41, 37, 36, 0.06);
+  --shadow-lg: 0 8px 32px rgba(41, 37, 36, 0.08);
+  --shadow-card: 0 2px 8px rgba(41, 37, 36, 0.03), 0 8px 32px rgba(41, 37, 36, 0.04);
+  --shadow-glass: 0 4px 24px rgba(41, 37, 36, 0.03), 0 12px 48px rgba(41, 37, 36, 0.04);
+
+  /* --- Gradient Background --- */
+  --gradient-warm: linear-gradient(135deg, #FEF0DC 0%, #F0FDFA 40%, #FAD0A0 100%);
 
   /* --- Border Radius --- */
   --radius-xs: 6px;
@@ -124,6 +128,7 @@
   --shadow-md: var(--shadow-md);
   --shadow-lg: var(--shadow-lg);
   --shadow-card: var(--shadow-card);
+  --shadow-glass: var(--shadow-glass);
 
   /* Border Radius */
   --radius-xs: var(--radius-xs);
@@ -140,4 +145,19 @@ body {
   color: var(--warm-800);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Glass Utility === */
+.glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }

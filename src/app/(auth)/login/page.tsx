@@ -69,7 +69,7 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={() => setLang(lang === "en" ? "ar" : "en")}
-          className="rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold text-gray-500 transition-colors hover:border-teal-500 hover:text-teal-600"
+          className="rounded-full border border-gray-200 px-3 py-1 text-xs font-semibold text-warm-500 transition-colors hover:border-orange-300 hover:text-orange-500"
         >
           {lang === "en" ? "عربي" : "EN"}
         </button>
@@ -89,10 +89,10 @@ export default function LoginPage() {
 
         {/* School Name */}
         <div className="mb-8 text-center">
-          <h1 className="font-arabic text-xl font-bold text-dark-800" dir="rtl">
+          <h1 className="font-arabic text-xl font-bold text-warm-800" dir="rtl">
             مدرسة مشاعل مسقط الخاصة
           </h1>
-          <p className="mt-1 text-sm font-medium text-gray-500">
+          <p className="mt-1 text-sm font-medium text-warm-500">
             Mashaail Muscat Private School
           </p>
         </div>
@@ -101,14 +101,14 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className={`space-y-4 ${isRtl ? "font-arabic" : ""}`}>
           {/* Error Message */}
           {error && (
-            <div className="rounded-sm bg-danger-bg px-4 py-2.5 text-xs font-medium text-danger-text">
+            <div className="rounded-lg bg-danger-bg px-4 py-2.5 text-xs font-medium text-danger-text">
               {error}
             </div>
           )}
 
           {/* Username */}
           <div>
-            <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+            <label className="mb-1.5 block text-xs font-semibold text-warm-600">
               {labels.username}
             </label>
             <input
@@ -117,13 +117,13 @@ export default function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               placeholder={labels.usernamePlaceholder}
               required
-              className="w-full rounded-sm border border-gray-200 px-4 py-2.5 text-sm text-dark-800 outline-none transition-colors placeholder:text-gray-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/10"
+              className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-warm-800 outline-none transition-colors placeholder:text-warm-500/50 focus:border-orange-300 focus:ring-2 focus:ring-orange-200/40"
             />
           </div>
 
           {/* Password */}
           <div>
-            <label className="mb-1.5 block text-xs font-semibold text-gray-600">
+            <label className="mb-1.5 block text-xs font-semibold text-warm-600">
               {labels.password}
             </label>
             <div className="relative">
@@ -133,12 +133,12 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={labels.passwordPlaceholder}
                 required
-                className={`w-full rounded-sm border border-gray-200 px-4 py-2.5 text-sm text-dark-800 outline-none transition-colors placeholder:text-gray-400 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/10 ${isRtl ? "pl-11" : "pr-11"}`}
+                className={`w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-warm-800 outline-none transition-colors placeholder:text-warm-500/50 focus:border-orange-300 focus:ring-2 focus:ring-orange-200/40 ${isRtl ? "pl-11" : "pr-11"}`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className={`absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 ${isRtl ? "left-3" : "right-3"}`}
+                className={`absolute top-1/2 -translate-y-1/2 text-warm-500 hover:text-warm-700 ${isRtl ? "left-3" : "right-3"}`}
                 tabIndex={-1}
               >
                 {showPassword ? (
@@ -181,7 +181,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-sm bg-teal-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full rounded-lg bg-orange-400 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? labels.signingIn : labels.signIn}
           </button>

@@ -38,7 +38,7 @@ const sectionLabels = {
 function NavIcon({ name, className }: { name: string; className?: string }) {
   const icons: Record<string, React.ReactNode> = {
     grid: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><rect x="14" y="14" width="7" height="7" rx="1" /></svg>
     ),
     users: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
@@ -99,7 +99,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   function NavSection({ sectionKey, items }: { sectionKey: "main" | "academic" | "admin"; items: typeof nav.main }) {
     return (
       <div className="mb-2">
-        <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-white/30">
+        <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-warm-500/60">
           {sectionLabels[sectionKey][lang]}
         </p>
         <div>
@@ -110,10 +110,10 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-2 rounded-sm px-3 py-1.5 text-[11px] font-medium transition-colors ${
+                className={`flex items-center gap-2 rounded-lg px-3 py-1.5 text-[11px] font-medium transition-colors ${
                   active
-                    ? "bg-teal-600 text-white"
-                    : "text-white/60 hover:bg-white/5 hover:text-white/90"
+                    ? "bg-orange-400/90 text-white shadow-sm"
+                    : "text-warm-800/50 hover:bg-warm-800/5 hover:text-warm-800/80"
                 }`}
               >
                 <NavIcon name={item.icon} />
@@ -131,14 +131,14 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          className="fixed inset-0 z-40 bg-black/30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar — warm cream */}
       <aside
-        className={`fixed z-50 flex h-dvh w-[220px] flex-shrink-0 flex-col bg-dark-800 transition-transform md:static md:translate-x-0 ${
+        className={`fixed z-50 flex h-dvh w-[220px] flex-shrink-0 flex-col border-r border-gray-200 bg-gray-100 transition-transform md:static md:translate-x-0 ${
           sidebarOpen
             ? "translate-x-0"
             : isRtl
@@ -147,13 +147,13 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         }`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 border-b border-white/5 px-4 py-3">
-          <Image src="/logo-white.svg" alt="Mashaail Muscat" width={28} height={28} />
+        <div className="flex items-center gap-2.5 border-b border-gray-200 px-4 py-3">
+          <Image src="/logo.svg" alt="Mashaail Muscat" width={28} height={28} />
           <div className="leading-tight">
-            <p className="text-[11px] font-bold text-white">
+            <p className="text-[11px] font-bold text-warm-800">
               {lang === "en" ? "Mashaail Muscat" : "مشاعل مسقط"}
             </p>
-            <p className="text-[8px] text-white/40">
+            <p className="text-[8px] text-warm-500">
               {lang === "en" ? "Private School" : "المدرسة الخاصة"}
             </p>
           </div>
@@ -175,14 +175,14 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
           <button
             type="button"
             onClick={() => setSidebarOpen(true)}
-            className="text-gray-500 md:hidden"
+            className="text-warm-500 md:hidden"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
           </button>
 
           {/* Welcome */}
           <div className="hidden md:block">
-            <h2 className="text-sm font-bold text-dark-800">
+            <h2 className="text-sm font-bold text-warm-800">
               {lang === "en"
                 ? `Welcome back, ${userName.en}`
                 : `مرحباً بك، ${userName.ar}`}
@@ -195,26 +195,26 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="rounded-full border border-gray-200 px-3 py-1 text-[10px] font-semibold text-gray-500 transition-colors hover:border-teal-500 hover:text-teal-600"
+              className="rounded-full border border-gray-200 px-3 py-1 text-[10px] font-semibold text-warm-500 transition-colors hover:border-orange-300 hover:text-orange-500"
             >
               {lang === "en" ? "عربي" : "EN"}
             </button>
 
             {/* Notifications */}
-            <button type="button" className="relative text-gray-400 hover:text-gray-600">
+            <button type="button" className="relative text-warm-500 hover:text-warm-700">
               <NavIcon name="bell" />
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-danger text-[8px] font-bold text-white">
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-orange-400 text-[8px] font-bold text-white">
                 3
               </span>
             </button>
 
             {/* Role Badge */}
-            <span className="rounded-full bg-teal-50 px-3 py-1 text-[10px] font-bold text-teal-700 ring-1 ring-teal-200">
+            <span className="rounded-full bg-orange-100 px-3 py-1 text-[10px] font-bold text-orange-600">
               {lang === "en" ? "Super Admin" : "المسؤول الأعلى"}
             </span>
 
             {/* Avatar */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-dark-800 text-xs font-bold text-teal-300">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-xs font-bold text-white">
               {lang === "en" ? "MH" : "م"}
             </div>
           </div>

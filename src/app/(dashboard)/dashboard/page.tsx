@@ -94,7 +94,7 @@ const recentActivity = [
     type: "exam",
     text: { en: "Math exam scheduled for Grade 7 on Feb 20", ar: "جدولة امتحان الرياضيات للصف 7 في 20 فبراير" },
     time: { en: "Yesterday", ar: "أمس" },
-    color: "bg-blue-400",
+    color: "bg-teal-400",
   },
   {
     type: "payment",
@@ -128,8 +128,8 @@ export default function DashboardPage() {
     <div>
       {/* Page Header */}
       <div className="mb-3">
-        <h1 className="text-base font-bold text-dark-800">{labels.dashboard}</h1>
-        <p className="text-xs text-gray-500">{labels.overview}</p>
+        <h1 className="text-base font-bold text-warm-800">{labels.dashboard}</h1>
+        <p className="text-xs text-warm-500">{labels.overview}</p>
       </div>
 
       {/* Stat Cards */}
@@ -140,19 +140,21 @@ export default function DashboardPage() {
             value: "1,240",
             sub: `+8 ${labels.vsLastMonth}`,
             subColor: "text-success",
+            accent: "bg-teal-50 border-teal-100",
           },
           {
             label: labels.totalTeachers,
             value: "86",
             sub: `82 ${labels.presentToday}`,
             subColor: "text-teal-600",
-            dark: true,
+            accent: "bg-orange-50 border-orange-100",
           },
           {
             label: labels.todayAttendance,
             value: "94.2%",
             sub: `+1.1% ${labels.vsLastMonth}`,
             subColor: "text-success",
+            accent: "bg-white border-gray-200",
           },
           {
             label: labels.outstandingFees,
@@ -160,6 +162,7 @@ export default function DashboardPage() {
             sub: `78% ${labels.collected}`,
             subColor: "text-orange-500",
             prefix: `${labels.currency} `,
+            accent: "bg-white border-gray-200",
           },
           {
             label: labels.monthlyRevenue,
@@ -167,28 +170,17 @@ export default function DashboardPage() {
             sub: `+5% ${labels.vsLastMonth}`,
             subColor: "text-teal-600",
             prefix: `${labels.currency} `,
+            accent: "bg-white border-gray-200",
           },
         ].map((stat) => (
           <div
             key={stat.label}
-            className={`rounded-md border p-3 shadow-card ${
-              stat.dark
-                ? "border-dark-700 bg-dark-800"
-                : "border-gray-100 bg-white"
-            }`}
+            className={`rounded-lg border p-3 shadow-card ${stat.accent}`}
           >
-            <p
-              className={`text-[10px] font-semibold uppercase tracking-wide ${
-                stat.dark ? "text-white/50" : "text-gray-400"
-              }`}
-            >
+            <p className="text-[10px] font-semibold uppercase tracking-wide text-warm-500">
               {stat.label}
             </p>
-            <p
-              className={`mt-0.5 text-xl font-extrabold tracking-tight ${
-                stat.dark ? "text-white" : "text-dark-800"
-              }`}
-            >
+            <p className="mt-0.5 text-xl font-extrabold tracking-tight text-warm-800">
               {stat.prefix || ""}{stat.value}
             </p>
             {stat.sub && (
@@ -203,29 +195,26 @@ export default function DashboardPage() {
       {/* Middle Section: Attendance Trend + Fee Collection */}
       <div className="mb-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
         {/* Attendance Trend — Line Graph */}
-        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-dark-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-warm-800">
             {labels.attendanceTrend}
           </h3>
           <svg viewBox={`0 0 ${graphW} ${graphH + 18}`} className="w-full" preserveAspectRatio="xMidYMid meet">
             {/* Area fill */}
-            <path d={areaPath} fill="rgba(13,148,136,0.08)" />
+            <path d={areaPath} fill="rgba(20,184,166,0.08)" />
             {/* Line */}
-            <path d={linePath} fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={linePath} fill="none" stroke="#14B8A6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             {/* Dots + labels */}
             {points.map((p, i) => {
               const dayKey = p.day as keyof typeof labels;
               return (
                 <g key={i}>
-                  {/* Dot */}
-                  <circle cx={p.x} cy={p.y} r="4" fill="#0d9488" />
-                  <circle cx={p.x} cy={p.y} r="2" fill="white" />
-                  {/* Value above dot */}
-                  <text x={p.x} y={p.y - 8} textAnchor="middle" fontSize="9" fontWeight="700" fill="#1a2e35">
+                  <circle cx={p.x} cy={p.y} r="5" fill="#14B8A6" />
+                  <circle cx={p.x} cy={p.y} r="2.5" fill="white" />
+                  <text x={p.x} y={p.y - 9} textAnchor="middle" fontSize="9" fontWeight="700" fill="#3B3532">
                     {p.value}%
                   </text>
-                  {/* Day label below */}
-                  <text x={p.x} y={graphH + 12} textAnchor="middle" fontSize="8" fontWeight="500" fill="#9ca3af">
+                  <text x={p.x} y={graphH + 12} textAnchor="middle" fontSize="8" fontWeight="500" fill="#B5ADA5">
                     {labels[dayKey]}
                   </text>
                 </g>
@@ -235,8 +224,8 @@ export default function DashboardPage() {
         </div>
 
         {/* Fee Collection Status */}
-        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-dark-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-warm-800">
             {labels.feeCollection}
           </h3>
           <div className="space-y-2">
@@ -247,10 +236,10 @@ export default function DashboardPage() {
             ].map((item) => (
               <div key={item.label}>
                 <div className="mb-1 flex items-center justify-between text-[11px]">
-                  <span className="font-medium text-gray-600">{item.label}</span>
+                  <span className="font-medium text-warm-600">{item.label}</span>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-gray-400">{item.amount}</span>
-                    <span className="font-bold text-dark-800">{item.value}</span>
+                    <span className="text-[10px] text-warm-500">{item.amount}</span>
+                    <span className="font-bold text-warm-800">{item.value}</span>
                   </div>
                 </div>
                 <div className="h-2 w-full rounded-full bg-gray-100">
@@ -264,18 +253,18 @@ export default function DashboardPage() {
           </div>
 
           {/* Summary numbers */}
-          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-100 pt-2">
+          <div className="mt-3 grid grid-cols-3 gap-2 border-t border-gray-200 pt-2">
             <div className="text-center">
               <p className="text-sm font-extrabold text-success">842</p>
-              <p className="text-[10px] text-gray-400">{labels.paid}</p>
+              <p className="text-[10px] text-warm-500">{labels.paid}</p>
             </div>
             <div className="text-center">
               <p className="text-sm font-extrabold text-orange-500">174</p>
-              <p className="text-[10px] text-gray-400">{labels.partiallyPaid}</p>
+              <p className="text-[10px] text-warm-500">{labels.partiallyPaid}</p>
             </div>
             <div className="text-center">
               <p className="text-sm font-extrabold text-danger">224</p>
-              <p className="text-[10px] text-gray-400">{labels.unpaid}</p>
+              <p className="text-[10px] text-warm-500">{labels.unpaid}</p>
             </div>
           </div>
         </div>
@@ -284,8 +273,8 @@ export default function DashboardPage() {
       {/* Bottom Section: Recent Activity + Quick Stats */}
       <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {/* Recent Activity */}
-        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-dark-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-warm-800">
             {labels.recentActivity}
           </h3>
           <div className="space-y-2">
@@ -293,10 +282,10 @@ export default function DashboardPage() {
               <div key={i} className="flex items-start gap-2">
                 <div className={`mt-1 h-2 w-2 flex-shrink-0 rounded-full ${a.color}`} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-medium text-dark-800 leading-tight">
+                  <p className="text-[11px] font-medium text-warm-800 leading-tight">
                     {a.text[lang]}
                   </p>
-                  <p className="text-[10px] text-gray-400">{a.time[lang]}</p>
+                  <p className="text-[10px] text-warm-500">{a.time[lang]}</p>
                 </div>
               </div>
             ))}
@@ -304,27 +293,27 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="rounded-md border border-gray-100 bg-white p-3 shadow-card">
-          <h3 className="mb-2 text-xs font-bold text-dark-800">
+        <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-card">
+          <h3 className="mb-2 text-xs font-bold text-warm-800">
             {labels.quickStats}
           </h3>
           <div className="grid grid-cols-2 gap-2">
             {[
               { label: labels.classrooms, value: "42", icon: "home", color: "bg-teal-50 text-teal-600" },
-              { label: labels.totalParents, value: "986", icon: "heart", color: "bg-blue-50 text-blue-600" },
-              { label: labels.absentToday, value: "72", icon: "alert", color: "bg-orange-50 text-orange-600" },
-              { label: labels.overdueFees, value: "134", icon: "clock", color: "bg-red-50 text-danger" },
+              { label: labels.totalParents, value: "986", icon: "heart", color: "bg-orange-100 text-orange-600" },
+              { label: labels.absentToday, value: "72", icon: "alert", color: "bg-orange-100 text-orange-500" },
+              { label: labels.overdueFees, value: "134", icon: "clock", color: "bg-danger-bg text-danger" },
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-2.5 rounded-sm bg-gray-50 px-3 py-2.5"
+                className="flex items-center gap-2.5 rounded-lg bg-gray-100 px-3 py-2.5"
               >
-                <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md ${item.color}`}>
+                <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg ${item.color}`}>
                   <QuickStatIcon name={item.icon} />
                 </div>
                 <div>
-                  <p className="text-sm font-extrabold text-dark-800">{item.value}</p>
-                  <p className="text-[10px] text-gray-400">{item.label}</p>
+                  <p className="text-sm font-extrabold text-warm-800">{item.value}</p>
+                  <p className="text-[10px] text-warm-500">{item.label}</p>
                 </div>
               </div>
             ))}

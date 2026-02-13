@@ -68,11 +68,11 @@ const attendanceData = [
 ];
 
 const absentToday = [
-  { name: { en: "Khalid Al-Rawahi", ar: "خالد الرواحي" }, detail: { en: "Grade 5A", ar: "الصف 5أ" }, type: "student" },
-  { name: { en: "Salim Al-Busaidi", ar: "سالم البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
-  { name: { en: "Maryam Al-Habsi", ar: "مريم الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
-  { name: { en: "Yusuf Al-Kindi", ar: "يوسف الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
-  { name: { en: "Aisha Al-Harthi", ar: "عائشة الحارثية" }, detail: { en: "Grade 2A", ar: "الصف 2أ" }, type: "student" },
+  { name: { en: "Khalid bin Ahmed bin Salim Al-Rawahi", ar: "خالد بن أحمد بن سالم الرواحي" }, detail: { en: "Grade 5A", ar: "الصف 5أ" }, type: "student" },
+  { name: { en: "Salim bin Nasser bin Ali Al-Busaidi", ar: "سالم بن ناصر بن علي البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
+  { name: { en: "Maryam bint Hamad bin Said Al-Habsi", ar: "مريم بنت حمد بن سعيد الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
+  { name: { en: "Yusuf bin Mohammed bin Rashid Al-Kindi", ar: "يوسف بن محمد بن راشد الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
+  { name: { en: "Aisha bint Khalfan bin Hamood Al-Harthi", ar: "عائشة بنت خلفان بن حمود الحارثية" }, detail: { en: "Grade 2A", ar: "الصف 2أ" }, type: "student" },
 ];
 
 const recentActivity = [
@@ -94,11 +94,6 @@ const recentActivity = [
   {
     type: "exam",
     text: { en: "Math exam scheduled for Grade 7 on Feb 20", ar: "جدولة امتحان الرياضيات للصف 7 في 20 فبراير" },
-    time: { en: "Yesterday", ar: "أمس" },
-  },
-  {
-    type: "payment",
-    text: { en: "Fee payment received from Omar Al-Rawahi — OMR 380", ar: "استلام رسوم من عمر الرواحي — 380 ر.ع" },
     time: { en: "Yesterday", ar: "أمس" },
   },
 ];
@@ -127,13 +122,13 @@ export default function DashboardPage() {
   return (
     <div>
       {/* Page Header */}
-      <div className="mb-2">
+      <div className="mb-1.5">
         <h1 className="text-base font-bold text-warm-800">{labels.dashboard}</h1>
         <p className="text-xs text-warm-500/70">{labels.overview}</p>
       </div>
 
       {/* Stat Cards */}
-      <div className="mb-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mb-1.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-5">
         {[
           {
             label: labels.totalStudents,
@@ -170,7 +165,7 @@ export default function DashboardPage() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className="glass rounded-2xl p-3 shadow-glass"
+            className="glass rounded-2xl p-2.5 shadow-glass"
           >
             <p className="text-[10px] font-semibold uppercase tracking-wide text-warm-500/70">
               {stat.label}
@@ -188,10 +183,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Middle Section: Attendance Trend + Fee Collection */}
-      <div className="mb-2 grid grid-cols-1 gap-2 lg:grid-cols-2">
+      <div className="mb-1.5 grid grid-cols-1 gap-1.5 lg:grid-cols-2">
         {/* Attendance Trend — Line Graph */}
-        <div className="glass rounded-2xl p-2.5 shadow-glass">
-          <h3 className="mb-2 text-xs font-bold text-warm-800">
+        <div className="glass rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-xs font-bold text-warm-800">
             {labels.attendanceTrend}
           </h3>
           <svg viewBox={`0 0 ${graphW} ${graphH + 22}`} className="w-full" preserveAspectRatio="xMidYMid meet">
@@ -219,11 +214,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Fee Collection Status */}
-        <div className="glass rounded-2xl p-2.5 shadow-glass">
-          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
+        <div className="glass rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-xs font-bold text-warm-800">
             {labels.feeCollection}
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {[
               { label: labels.paid, value: "68%", amount: `${labels.currency} 84,200`, color: "bg-orange-400", width: "68%" },
               { label: labels.partiallyPaid, value: "14%", amount: `${labels.currency} 17,400`, color: "bg-orange-300", width: "14%" },
@@ -249,17 +244,16 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Bottom Section: Recent Activity + Quick Stats */}
-      <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      {/* Bottom Section: Recent Activity + Absent Today */}
+      <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
         {/* Recent Activity */}
-        <div className="glass rounded-2xl p-2.5 shadow-glass">
-          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
+        <div className="glass rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-xs font-bold text-warm-800">
             {labels.recentActivity}
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-1">
             {recentActivity.map((a, i) => (
-              <div key={i} className="flex items-start gap-2">
-                <div className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-orange-400/50" />
+              <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-3 py-1.5">
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-medium text-warm-700 leading-tight">
                     {a.text[lang]}
@@ -272,11 +266,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Absent Today */}
-        <div className="glass rounded-2xl p-2.5 shadow-glass">
-          <h3 className="mb-1.5 text-xs font-bold text-warm-800">
+        <div className="glass rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-xs font-bold text-warm-800">
             {labels.absentToday}
           </h3>
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {absentToday.map((person, i) => (
               <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-3 py-1.5">
                 <div>

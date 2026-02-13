@@ -86,7 +86,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   function NavSection({ sectionKey, items }: { sectionKey: "main" | "academic" | "admin"; items: typeof nav.main }) {
     return (
-      <div>
+      <div className="mb-3">
         <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-warm-500/50">
           {sectionLabels[sectionKey][lang]}
         </p>
@@ -148,7 +148,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex flex-1 flex-col justify-between overflow-y-auto px-3 py-3">
+        <nav className="flex-1 overflow-y-auto px-3 py-2">
           <NavSection sectionKey="main" items={nav.main} />
           <NavSection sectionKey="academic" items={nav.academic} />
           <NavSection sectionKey="admin" items={nav.admin} />

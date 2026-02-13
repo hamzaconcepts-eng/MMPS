@@ -11,15 +11,12 @@ const nav = {
     { href: "/dashboard", en: "Dashboard", ar: "لوحة التحكم", icon: "grid" },
     { href: "/students", en: "Students", ar: "الطلاب", icon: "users" },
     { href: "/teachers", en: "Teachers", ar: "المعلمون", icon: "briefcase" },
-    { href: "/parents", en: "Parents", ar: "أولياء الأمور", icon: "heart" },
   ],
   academic: [
-    { href: "/academics", en: "Academics", ar: "الشؤون الأكاديمية", icon: "book" },
     { href: "/classrooms", en: "Classrooms", ar: "الفصول", icon: "home" },
     { href: "/timetable", en: "Timetable", ar: "الجدول الزمني", icon: "clock" },
     { href: "/attendance", en: "Attendance", ar: "الحضور", icon: "check" },
-    { href: "/assessments", en: "Assessments", ar: "التقييمات", icon: "award" },
-    { href: "/homework", en: "Homework", ar: "الواجبات", icon: "edit" },
+    { href: "/performance", en: "Performance", ar: "الأداء", icon: "award" },
   ],
   admin: [
     { href: "/fees", en: "Fees", ar: "الرسوم", icon: "dollar" },
@@ -46,12 +43,6 @@ function NavIcon({ name, className }: { name: string; className?: string }) {
     briefcase: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></svg>
     ),
-    heart: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-    ),
-    book: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>
-    ),
     home: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
     ),
@@ -63,9 +54,6 @@ function NavIcon({ name, className }: { name: string; className?: string }) {
     ),
     award: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></svg>
-    ),
-    edit: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
     ),
     dollar: (
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
@@ -98,7 +86,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
 
   function NavSection({ sectionKey, items }: { sectionKey: "main" | "academic" | "admin"; items: typeof nav.main }) {
     return (
-      <div className="mb-2">
+      <div>
         <p className="mb-1 px-3 text-[8px] font-bold uppercase tracking-widest text-warm-500/50">
           {sectionLabels[sectionKey][lang]}
         </p>
@@ -160,7 +148,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 overflow-y-auto px-3 py-2">
+        <nav className="flex flex-1 flex-col justify-between overflow-y-auto px-3 py-3">
           <NavSection sectionKey="main" items={nav.main} />
           <NavSection sectionKey="academic" items={nav.academic} />
           <NavSection sectionKey="admin" items={nav.admin} />

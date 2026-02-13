@@ -68,11 +68,10 @@ const attendanceData = [
 ];
 
 const absentToday = [
-  { name: { en: "Khalid bin Ahmed bin Salim Al-Rawahi", ar: "خالد بن أحمد بن سالم الرواحي" }, detail: { en: "Grade 5A", ar: "الصف 5أ" }, type: "student" },
-  { name: { en: "Salim bin Nasser bin Ali Al-Busaidi", ar: "سالم بن ناصر بن علي البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
-  { name: { en: "Maryam bint Hamad bin Said Al-Habsi", ar: "مريم بنت حمد بن سعيد الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
-  { name: { en: "Yusuf bin Mohammed bin Rashid Al-Kindi", ar: "يوسف بن محمد بن راشد الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
-  { name: { en: "Aisha bint Khalfan bin Hamood Al-Harthi", ar: "عائشة بنت خلفان بن حمود الحارثية" }, detail: { en: "Grade 2A", ar: "الصف 2أ" }, type: "student" },
+  { name: { en: "Khalid Ahmed Salim Al-Rawahi", ar: "خالد بن أحمد بن سالم الرواحي" }, detail: { en: "Grade 5A", ar: "الصف 5أ" }, type: "student" },
+  { name: { en: "Salim Nasser Ali Al-Busaidi", ar: "سالم بن ناصر بن علي البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
+  { name: { en: "Maryam Hamad Said Al-Habsi", ar: "مريم بنت حمد بن سعيد الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
+  { name: { en: "Yusuf Mohammed Rashid Al-Kindi", ar: "يوسف بن محمد بن راشد الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
 ];
 
 const recentActivity = [
@@ -105,7 +104,7 @@ export default function DashboardPage() {
   // Line graph calculations
   const isRtl = lang === "ar";
   const graphW = 280;
-  const graphH = 80;
+  const graphH = 72;
   const padX = isRtl ? 30 : 16;
   const padY = 10;
   const minVal = Math.min(...attendanceData.map((d) => d.value)) - 3;
@@ -120,15 +119,15 @@ export default function DashboardPage() {
   const areaPath = `${linePath} L ${points[points.length - 1].x} ${graphH} L ${points[0].x} ${graphH} Z`;
 
   return (
-    <div>
+    <div className="flex h-full flex-col gap-1.5">
       {/* Page Header */}
-      <div className="mb-1.5">
-        <h1 className="text-base font-bold text-warm-800">{labels.dashboard}</h1>
-        <p className="text-xs text-warm-500/70">{labels.overview}</p>
+      <div>
+        <h1 className="text-sm font-bold text-warm-800">{labels.dashboard}</h1>
+        <p className="text-[10px] text-warm-500/70">{labels.overview}</p>
       </div>
 
       {/* Stat Cards */}
-      <div className="mb-1.5 grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-5">
         {[
           {
             label: labels.totalStudents,
@@ -165,16 +164,16 @@ export default function DashboardPage() {
         ].map((stat) => (
           <div
             key={stat.label}
-            className="glass rounded-2xl p-2.5 shadow-glass"
+            className="glass rounded-2xl px-2.5 py-2 shadow-glass"
           >
-            <p className="text-[10px] font-semibold uppercase tracking-wide text-warm-500/70">
+            <p className="text-[9px] font-semibold uppercase tracking-wide text-warm-500/70">
               {stat.label}
             </p>
-            <p className="mt-0.5 text-xl font-extrabold tracking-tight text-warm-800">
+            <p className="text-lg font-extrabold tracking-tight text-warm-800">
               {stat.prefix || ""}{stat.value}
             </p>
             {stat.sub && (
-              <p className={`mt-0.5 text-[10px] font-semibold ${stat.subColor}`}>
+              <p className={`text-[9px] font-semibold ${stat.subColor}`}>
                 {stat.sub}
               </p>
             )}
@@ -183,13 +182,13 @@ export default function DashboardPage() {
       </div>
 
       {/* Middle Section: Attendance Trend + Fee Collection */}
-      <div className="mb-1.5 grid grid-cols-1 gap-1.5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
         {/* Attendance Trend — Line Graph */}
         <div className="glass rounded-2xl p-2 shadow-glass">
-          <h3 className="mb-1 text-xs font-bold text-warm-800">
+          <h3 className="mb-0.5 text-[11px] font-bold text-warm-800">
             {labels.attendanceTrend}
           </h3>
-          <svg viewBox={`0 0 ${graphW} ${graphH + 22}`} className="w-full" preserveAspectRatio="xMidYMid meet">
+          <svg viewBox={`0 0 ${graphW} ${graphH + 18}`} className="w-full" preserveAspectRatio="xMidYMid meet">
             {/* Area fill */}
             <path d={areaPath} fill="rgba(240,146,46,0.06)" />
             {/* Line */}
@@ -204,7 +203,7 @@ export default function DashboardPage() {
                   <text x={p.x} y={p.y - 9} textAnchor="middle" fontSize="9" fontWeight="700" fill="#3B3532">
                     {p.value}%
                   </text>
-                  <text x={p.x} y={graphH + 13} textAnchor="middle" fontSize={isRtl ? "9" : "8"} fontWeight="500" fill="#B5ADA5" direction={isRtl ? "rtl" : undefined}>
+                  <text x={p.x} y={graphH + 12} textAnchor="middle" fontSize={isRtl ? "9" : "8"} fontWeight="500" fill="#B5ADA5" direction={isRtl ? "rtl" : undefined}>
                     {labels[dayKey]}
                   </text>
                 </g>
@@ -215,7 +214,7 @@ export default function DashboardPage() {
 
         {/* Fee Collection Status */}
         <div className="glass rounded-2xl p-2 shadow-glass">
-          <h3 className="mb-1 text-xs font-bold text-warm-800">
+          <h3 className="mb-1 text-[11px] font-bold text-warm-800">
             {labels.feeCollection}
           </h3>
           <div className="space-y-1.5">
@@ -225,7 +224,7 @@ export default function DashboardPage() {
               { label: labels.unpaid, value: "18%", amount: `${labels.currency} 22,400`, color: "bg-warm-500/30", width: "18%" },
             ].map((item) => (
               <div key={item.label}>
-                <div className="mb-1 flex items-center justify-between text-[11px]">
+                <div className="mb-0.5 flex items-center justify-between text-[11px]">
                   <span className="font-medium text-warm-600">{item.label}</span>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] text-warm-500/70">{item.amount}</span>
@@ -245,20 +244,20 @@ export default function DashboardPage() {
       </div>
 
       {/* Bottom Section: Recent Activity + Absent Today */}
-      <div className="grid grid-cols-1 gap-1.5 lg:grid-cols-2">
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-1.5 lg:grid-cols-2">
         {/* Recent Activity */}
-        <div className="glass rounded-2xl p-2 shadow-glass">
-          <h3 className="mb-1 text-xs font-bold text-warm-800">
+        <div className="glass flex flex-col rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-[11px] font-bold text-warm-800">
             {labels.recentActivity}
           </h3>
-          <div className="space-y-1">
+          <div className="flex flex-1 flex-col gap-1">
             {recentActivity.map((a, i) => (
-              <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-3 py-1.5">
+              <div key={i} className="flex items-center rounded-xl bg-white/40 px-2.5 py-1">
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-medium text-warm-700 leading-tight">
                     {a.text[lang]}
                   </p>
-                  <p className="text-[10px] text-warm-500/60">{a.time[lang]}</p>
+                  <p className="text-[9px] text-warm-500/60">{a.time[lang]}</p>
                 </div>
               </div>
             ))}
@@ -266,18 +265,18 @@ export default function DashboardPage() {
         </div>
 
         {/* Absent Today */}
-        <div className="glass rounded-2xl p-2 shadow-glass">
-          <h3 className="mb-1 text-xs font-bold text-warm-800">
+        <div className="glass flex flex-col rounded-2xl p-2 shadow-glass">
+          <h3 className="mb-1 text-[11px] font-bold text-warm-800">
             {labels.absentToday}
           </h3>
-          <div className="space-y-1">
+          <div className="flex flex-1 flex-col gap-1">
             {absentToday.map((person, i) => (
-              <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-3 py-1.5">
+              <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-2.5 py-1">
                 <div>
                   <p className="text-[11px] font-medium text-warm-700">
                     {person.name[lang]}
                   </p>
-                  <p className="text-[10px] text-warm-500/60">
+                  <p className="text-[9px] text-warm-500/60">
                     {person.detail[lang]}
                   </p>
                 </div>
@@ -296,4 +295,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

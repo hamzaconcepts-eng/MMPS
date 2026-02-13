@@ -20,11 +20,9 @@ const t = {
     partiallyPaid: "Partially Paid",
     unpaid: "Unpaid",
     recentActivity: "Recent Activity",
-    quickStats: "Quick Stats",
-    classrooms: "Classrooms",
-    newThisMonth: "New This Month",
     absentToday: "Absent Today",
-    overdueFees: "Overdue Fees",
+    student: "Student",
+    teacher: "Teacher",
     currency: "OMR",
     sun: "Sun",
     mon: "Mon",
@@ -49,11 +47,9 @@ const t = {
     partiallyPaid: "مدفوع جزئياً",
     unpaid: "غير مدفوع",
     recentActivity: "النشاط الأخير",
-    quickStats: "إحصائيات سريعة",
-    classrooms: "الفصول",
-    newThisMonth: "الجدد هذا الشهر",
     absentToday: "الغياب اليوم",
-    overdueFees: "رسوم متأخرة",
+    student: "طالب",
+    teacher: "معلم",
     currency: "ر.ع",
     sun: "الأحد",
     mon: "الإثنين",
@@ -69,6 +65,14 @@ const attendanceData = [
   { day: "tue", value: 89 },
   { day: "wed", value: 94 },
   { day: "thu", value: 92 },
+];
+
+const absentToday = [
+  { name: { en: "Khalid Al-Rawahi", ar: "خالد الرواحي" }, detail: { en: "Grade 5A", ar: "الصف 5أ" }, type: "student" },
+  { name: { en: "Salim Al-Busaidi", ar: "سالم البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
+  { name: { en: "Maryam Al-Habsi", ar: "مريم الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
+  { name: { en: "Yusuf Al-Kindi", ar: "يوسف الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
+  { name: { en: "Aisha Al-Harthi", ar: "عائشة الحارثية" }, detail: { en: "Grade 2A", ar: "الصف 2أ" }, type: "student" },
 ];
 
 const recentActivity = [
@@ -267,29 +271,29 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Quick Stats */}
+        {/* Absent Today */}
         <div className="glass rounded-2xl p-2.5 shadow-glass">
           <h3 className="mb-1.5 text-xs font-bold text-warm-800">
-            {labels.quickStats}
+            {labels.absentToday}
           </h3>
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: labels.classrooms, value: "42", icon: "home" },
-              { label: labels.newThisMonth, value: "15", icon: "plus" },
-              { label: labels.absentToday, value: "72", icon: "alert" },
-              { label: labels.overdueFees, value: "134", icon: "clock" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                className="flex items-center gap-2.5 rounded-xl bg-white/40 px-3 py-2"
-              >
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-xl bg-white/60 text-warm-600">
-                  <QuickStatIcon name={item.icon} />
-                </div>
+          <div className="space-y-1.5">
+            {absentToday.map((person, i) => (
+              <div key={i} className="flex items-center justify-between rounded-xl bg-white/40 px-3 py-1.5">
                 <div>
-                  <p className="text-sm font-extrabold text-warm-800">{item.value}</p>
-                  <p className="text-[10px] text-warm-500/70">{item.label}</p>
+                  <p className="text-[11px] font-medium text-warm-700">
+                    {person.name[lang]}
+                  </p>
+                  <p className="text-[10px] text-warm-500/60">
+                    {person.detail[lang]}
+                  </p>
                 </div>
+                <span className={`rounded-full px-2 py-0.5 text-[9px] font-semibold ${
+                  person.type === "teacher"
+                    ? "bg-orange-400/15 text-orange-600"
+                    : "bg-warm-500/10 text-warm-500"
+                }`}>
+                  {labels[person.type as keyof typeof labels]}
+                </span>
               </div>
             ))}
           </div>
@@ -299,20 +303,3 @@ export default function DashboardPage() {
   );
 }
 
-function QuickStatIcon({ name }: { name: string }) {
-  const icons: Record<string, React.ReactNode> = {
-    home: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg>
-    ),
-    plus: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
-    ),
-    alert: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
-    ),
-    clock: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
-    ),
-  };
-  return <>{icons[name] || null}</>;
-}

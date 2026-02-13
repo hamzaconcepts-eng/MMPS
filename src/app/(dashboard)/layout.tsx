@@ -14,7 +14,6 @@ const nav = {
   ],
   academic: [
     { href: "/classrooms", en: "Classrooms", ar: "الفصول", icon: "home" },
-    { href: "/timetable", en: "Timetable", ar: "الجدول الزمني", icon: "clock" },
     { href: "/attendance", en: "Attendance", ar: "الحضور", icon: "check" },
     { href: "/performance", en: "Performance", ar: "الأداء", icon: "award" },
   ],

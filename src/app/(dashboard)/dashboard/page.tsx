@@ -72,6 +72,7 @@ const absentToday = [
   { name: { en: "Salim Nasser Ali Al-Busaidi", ar: "سالم بن ناصر بن علي البوسعيدي" }, detail: { en: "Math Teacher", ar: "معلم رياضيات" }, type: "teacher" },
   { name: { en: "Maryam Hamad Said Al-Habsi", ar: "مريم بنت حمد بن سعيد الحبسية" }, detail: { en: "Grade 3B", ar: "الصف 3ب" }, type: "student" },
   { name: { en: "Yusuf Mohammed Rashid Al-Kindi", ar: "يوسف بن محمد بن راشد الكندي" }, detail: { en: "Grade 7A", ar: "الصف 7أ" }, type: "student" },
+  { name: { en: "Aisha Khalfan Hamood Al-Harthi", ar: "عائشة بنت خلفان بن حمود الحارثية" }, detail: { en: "Grade 2A", ar: "الصف 2أ" }, type: "student" },
 ];
 
 const recentActivity = [
@@ -93,6 +94,11 @@ const recentActivity = [
   {
     type: "exam",
     text: { en: "Math exam scheduled for Grade 7 on Feb 20", ar: "جدولة امتحان الرياضيات للصف 7 في 20 فبراير" },
+    time: { en: "Yesterday", ar: "أمس" },
+  },
+  {
+    type: "payment",
+    text: { en: "Fee payment received from Omar Al-Rawahi — OMR 380", ar: "استلام رسوم من عمر الرواحي — 380 ر.ع" },
     time: { en: "Yesterday", ar: "أمس" },
   },
 ];
